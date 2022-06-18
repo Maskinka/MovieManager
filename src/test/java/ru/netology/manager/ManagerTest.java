@@ -2,7 +2,11 @@ package ru.netology.manager;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import ru.netology.domain.Movie;
+import ru.netology.repository.MovieRepository;
+
+import static org.mockito.Mockito.doReturn;
 
 public class ManagerTest {
     Movie first = new Movie(1);
@@ -17,9 +21,10 @@ public class ManagerTest {
     Movie tenth = new Movie(10);
     Movie eleventh = new Movie(11);
 
-    @Test
+   @Test
     public void movieTest() {
-        Manager manager = new Manager(5);
+        MovieRepository repository = new MovieRepository();
+        Manager manager = new Manager(5, (repository));
         manager.addMovie(first);
         manager.addMovie(second);
         manager.addMovie(third);
@@ -36,7 +41,8 @@ public class ManagerTest {
     }
     @Test
     public void AllMovieTest() {
-        Manager manager = new Manager();
+        MovieRepository repository = new MovieRepository();
+        Manager manager = new Manager(repository);
         manager.addMovie(first);
         manager.addMovie(second);
         manager.addMovie(third);

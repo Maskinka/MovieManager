@@ -1,36 +1,32 @@
 package ru.netology.manager;
 
-import lombok.Data;
 import ru.netology.domain.Movie;
+import ru.netology.repository.MovieRepository;
 
-@Data
 public class Manager {
-    private Movie[] movies = new Movie[0];
+    private MovieRepository repository;
     private int resultLength = 10;
-
-    public Manager() {
+    public Manager(MovieRepository repository) {this.repository = repository;
     }
+    public Manager(int resultLength, MovieRepository repository) {
 
-    public Manager(int resultLength) {
         this.resultLength = resultLength;
+        this.repository = repository;
     }
+
+
 
     public void addMovie(Movie movie) {
-        int length = movies.length + 1;
-        Movie[] tmp = new Movie[length];
-        for (int i = 0; i < movies.length; i++) {
-            tmp[i] = movies[i];
-        }
-        int newMovie = tmp.length - 1;
-        tmp[newMovie] = movie;
-        movies = tmp;
+        repository.save(movie);
     }
 
     public Movie[] findAll() {
+        Movie[] movies = repository.findAll();
         return movies;
     }
 
     public Movie[] findLast() {
+        Movie[] movies = repository.findAll();
 
         if (movies.length > resultLength) {
             resultLength = resultLength;
