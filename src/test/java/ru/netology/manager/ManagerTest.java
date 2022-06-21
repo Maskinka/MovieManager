@@ -18,7 +18,7 @@ public class ManagerTest {
     Movie eleventh = new Movie(11);
 
     @Test
-    public void movieTest() {
+    public void overLimitTest() {
         Manager manager = new Manager(5);
         manager.addMovie(first);
         manager.addMovie(second);
@@ -31,6 +31,35 @@ public class ManagerTest {
 
         Movie[] actual = manager.findLast();
         Movie[] expected = {sixth, fifth, fourth, third, second};
+        Assertions.assertArrayEquals (actual, expected);
+
+    }
+    @Test
+    public void lessLimitTest() {
+        Manager manager = new Manager(5);
+        manager.addMovie(first);
+        manager.addMovie(second);
+        manager.findAll();
+        manager.findLast();
+
+        Movie[] actual = manager.findLast();
+        Movie[] expected = {second,first};
+        Assertions.assertArrayEquals (actual, expected);
+
+    }
+    @Test
+    public void equalLimitTest() {
+        Manager manager = new Manager(5);
+        manager.addMovie(first);
+        manager.addMovie(second);
+        manager.addMovie(third);
+        manager.addMovie(fourth);
+        manager.addMovie(fifth);
+        manager.findAll();
+        manager.findLast();
+
+        Movie[] actual = manager.findLast();
+        Movie[] expected = {fifth, fourth, third, second, first};
         Assertions.assertArrayEquals (actual, expected);
 
     }
